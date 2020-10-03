@@ -156,7 +156,7 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
       HttpClientTools.assertSuccessWithContent(response, "embed video page response");
 
       String html = EntityUtils.toString(response.getEntity(), UTF_8);
-      String configJson = DataFormatTools.extractBetween(html, "'PLAYER_CONFIG': ", "});writeEmbed();");
+      String configJson = DataFormatTools.extractBetween(html, "'PLAYER_CONFIG': ", "});yt.setConfig");
 
       if (configJson != null) {
         return JsonBrowser.parse(configJson);
