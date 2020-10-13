@@ -58,7 +58,7 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
             } else if (!child.get("playerResponse").isNull()) {
               JsonBrowser playerResponse = child.get("playerResponse");
               statusBlock = playerResponse.get("playabilityStatus");
-              if (playerInfo.isNull() && !playerResponse.get("streamingData").isNull()) {
+              if (playerInfo.isNull()) {
                 JsonBrowser baseEmbedPage = loadTrackBaseInfoFromEmbedPage(httpInterface, videoId);
                 baseJs = baseEmbedPage.get("assets").get("js");
                 playerInfo = playerResponse;
