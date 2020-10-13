@@ -1,5 +1,44 @@
 # Change Log
 
+## [1.3.56] -- 2020-10-11
+### Fixed
+- Fixed playback of Bandcamp albums (PR 20 by Walkyst).
+
+## [1.3.55] -- 2020-10-11
+### Changed
+- Changed behaviour of loading for YT videos that send the new response format; if the JS asset is missing, fall back to loading it from the embed page (PR 19 by Walkyst). 
+
+## [1.3.54.3] -- 2020-10-04
+### Added
+- Added support for a few more variances of YT response formats for age restricted videos.
+
+## [1.3.54.2] -- 2020-10-04
+### Added
+- Added support for a few variances of YT response formats for age restricted videos.
+
+## [1.3.54.1] -- 2020-10-04
+### Added
+- Added debug logging of HTML when YT videos don't include an expected config format.
+
+## [1.3.54] -- 2020-10-04
+### Fixed
+- Fixed loading of age restricted YT videos (PR 18 by Gregyyy).
+
+## [1.3.53] -- 2020-10-01
+### Changed
+- Added support for a new YT response format (PR 17 by Fabricio20).
+
+## [1.3.52] -- 2020-09-23
+### Removed
+- Removed "Handling of custom Bandcamp URLs" pull request due to a security risk.
+
+## [1.3.51] -- 2020-09-19
+### Fixed
+- Fixed YT playlists titles returning null due to a change in the JSON response.
+- Fixed fetching of access tokens for obtaining channel information from Twitch (PR 16 by kimcore).
+- Fixed handling of custom Bandcamp URLs (PR 14 by marshall-rhea).
+- Fixed obtaining original Bandcamp URLs for playing albums (PR 15 by aikaterna).
+
 ## [1.3.50] -- 2020-06-17
 ### Fixed
 - Fixed YT search sometimes not finding anything because of YT providing different format (PR 492 by Frederikam).
