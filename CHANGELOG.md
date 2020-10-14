@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.3.57] -- 2020-10-13
+### Fixed
+- Fixed age restricted videos throwing `NullPointerException` (PR 21 by Walkyst).
+
 ## [1.3.56] -- 2020-10-11
 ### Fixed
 - Fixed playback of Bandcamp albums (PR 20 by Walkyst).
