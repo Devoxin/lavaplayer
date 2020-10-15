@@ -65,7 +65,11 @@ public class DefaultYoutubeTrackDetails implements YoutubeTrackDetails {
 
   @Override
   public String getPlayerScript() {
-    return baseJs.text();
+    if (baseJs.isNull()) {
+      return info.get("assets").get("js").text();
+    } else {
+      return baseJs.text();
+    }
   }
 
   private List<YoutubeTrackFormat> loadTrackFormats(

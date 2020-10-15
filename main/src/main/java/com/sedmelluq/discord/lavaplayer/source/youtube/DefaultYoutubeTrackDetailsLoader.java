@@ -49,6 +49,7 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
         JsonBrowser playerInfo = JsonBrowser.NULL_BROWSER;
         JsonBrowser statusBlock = JsonBrowser.NULL_BROWSER;
         JsonBrowser baseJs = JsonBrowser.NULL_BROWSER;
+        JsonBrowser playerResponse = JsonBrowser.NULL_BROWSER;
 
         for (JsonBrowser child : json.values()) {
           if (child.isMap()) {
@@ -56,13 +57,8 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
               playerInfo = child.get("player");
               baseJs = playerInfo.get("assets").get("js");
             } else if (!child.get("playerResponse").isNull()) {
-              JsonBrowser playerResponse = child.get("playerResponse");
+              playerResponse = child.get("playerResponse");
               statusBlock = playerResponse.get("playabilityStatus");
-              if (playerInfo.isNull()) {
-                JsonBrowser baseEmbedPage = loadTrackBaseInfoFromEmbedPage(httpInterface, videoId);
-                baseJs = baseEmbedPage.get("assets").get("js");
-                playerInfo = playerResponse;
-              }
             }
           }
         }
@@ -70,7 +66,9 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
         switch (checkStatusBlock(statusBlock)) {
           case INFO_PRESENT:
             if (playerInfo.isNull()) {
-              throw new RuntimeException("No player info block.");
+              JsonBrowser baseEmbedPage = loadTrackBaseInfoFromEmbedPage(httpInterface, videoId);
+              baseJs = baseEmbedPage.get("assets").get("js");
+              playerInfo = playerResponse;
             }
 
             return new DefaultYoutubeTrackDetails(videoId, playerInfo, baseJs);
