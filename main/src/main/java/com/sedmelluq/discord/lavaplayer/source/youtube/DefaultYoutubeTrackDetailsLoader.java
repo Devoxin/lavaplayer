@@ -68,6 +68,9 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
             if (playerInfo.isNull()) {
               JsonBrowser baseEmbedPage = loadTrackBaseInfoFromEmbedPage(httpInterface, videoId);
               baseJs = baseEmbedPage.get("assets").get("js");
+              if (baseJs == JsonBrowser.NULL_BROWSER) {
+                baseJs = baseEmbedPage.get("WEB_PLAYER_CONTEXT_CONFIG_ID_EMBEDDED_PLAYER").get("jsUrl");
+              }
               playerInfo = playerResponse;
             }
 
@@ -167,6 +170,10 @@ public class DefaultYoutubeTrackDetailsLoader implements YoutubeTrackDetailsLoad
       String html = EntityUtils.toString(response.getEntity(), UTF_8);
       String configJson = DataFormatTools.extractBetween(
           html,
+          "'WEB_PLAYER_CONTEXT_CONFIGS':", "});writeEmbed();",
+          "'WEB_PLAYER_CONTEXT_CONFIGS':", "});yt.setConfig",
+          "\"WEB_PLAYER_CONTEXT_CONFIGS\":", "});writeEmbed();",
+          "\"WEB_PLAYER_CONTEXT_CONFIGS\":", "});yt.setConfig",
           "'PLAYER_CONFIG':", "});writeEmbed();",
           "'PLAYER_CONFIG':", "});yt.setConfig",
           "\"PLAYER_CONFIG\":", "});writeEmbed();",
