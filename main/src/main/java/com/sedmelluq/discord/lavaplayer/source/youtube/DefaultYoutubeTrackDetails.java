@@ -66,7 +66,9 @@ public class DefaultYoutubeTrackDetails implements YoutubeTrackDetails {
   @Override
   public String getPlayerScript() {
     if (baseJs.isNull()) {
-      return info.get("assets").get("js").text();
+      String baseJs = Optional.ofNullable(data.get("assets").get("js").text())
+              .orElse(data.get("WEB_PLAYER_CONTEXT_CONFIG_ID_EMBEDDED_PLAYER").get("jsUrl").text());
+      return baseJs;
     } else {
       return baseJs.text();
     }
